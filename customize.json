@@ -1,7 +1,7 @@
 {
   "greeting": "Hey",
   "name": "Sindy",
-  "greetingText": "Por cierto tu nombre es muy bonito!",
+  "greetingText": "Por cierto tu nombre es muy bonito.",
   "wishText": "Te quiero mucho <3",
   "imagePath": "img/lydia2.png",
   "text1": "Es tu cumpleaños!!! <3",
@@ -11,11 +11,11 @@
   "text3": "Pero entonces me detuve.",
   "text4": "Me di cuenta que queria hacer algo mas",
   "text4Adjective": "Especial",
-  "text5Entry": "Porque,",
+  "text5Entry": "Porqué,",
   "text5Content": "Tu eres especial!",
   "smiley": ":)",
   "bigTextPart1": "Entonces",
-  "wishHeading": "Feliz cumpleañooos !",
+  "wishHeading": "Feliz cumpleaños!",
   "outroText": "Espero que tengas un día increíble. ¡Feliz cumpleaños, Sindy! 🎉🎂",
   "replayText": "O da click si quieres volver a ver el mensaje",
   "outroSmiley": "<3"

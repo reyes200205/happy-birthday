@@ -334,7 +334,7 @@ function launchConfetti() {
   }
 
   let frameCount = 0;
-  const maxFrames = 300;
+  const maxFrames = 600;
 
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -345,8 +345,8 @@ function launchConfetti() {
       p.x += p.speedX;
       p.rotation += p.rotationSpeed;
 
-      if (frameCount > maxFrames - 60) {
-        p.opacity -= 0.016;
+      if (frameCount > maxFrames - 120) {
+        p.opacity -= 0.008;
         if (p.opacity < 0) p.opacity = 0;
       }
 
