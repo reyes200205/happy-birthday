@@ -34,7 +34,11 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  top: 20vh;
+  top: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .one {
@@ -90,6 +94,7 @@ body {
   position: absolute;
   left: 0;
   right: 0;
+  padding: 0 10%;
 }
 
 .idea-3 strong {
@@ -109,11 +114,86 @@ body {
 }
 
 .idea-6 span {
-  font-size: 15rem;
+  font-size: 5rem;
 }
 
 .six {
   position: relative;
+}
+
+.photo-cards {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  margin-bottom: 10px;
+}
+
+.photo-card {
+  position: absolute;
+  width: 140px;
+  height: 160px;
+  background: #fff;
+  padding: 8px 8px 25px 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+  border-radius: 3px;
+}
+
+.photo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.card-1 {
+  top: 10px;
+  left: 2%;
+  transform: rotate(-8deg);
+}
+
+.card-2 {
+  top: 0px;
+  left: 27%;
+  transform: rotate(5deg);
+}
+
+.card-3 {
+  top: 20px;
+  left: 52%;
+  transform: rotate(-3deg);
+}
+
+.card-4 {
+  top: 5px;
+  left: 75%;
+  transform: rotate(7deg);
+}
+
+.card-5 {
+  top: 15px;
+  left: 14%;
+  transform: rotate(4deg);
+  z-index: 2;
+}
+
+.card-6 {
+  top: 8px;
+  left: 40%;
+  transform: rotate(-6deg);
+  z-index: 2;
+}
+
+.card-7 {
+  top: 12px;
+  left: 63%;
+  transform: rotate(3deg);
+  z-index: 2;
+}
+
+.card-8 {
+  top: 3px;
+  left: 88%;
+  transform: rotate(-5deg);
 }
 
 .six img {
@@ -210,6 +290,17 @@ body {
   fill: #9a90da;
 }
 
+#confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 10;
+  display: none;
+}
+
 .wish-hbd {
   font-size: 3em;
   margin: 0;
@@ -227,9 +318,16 @@ body {
   font-weight: lighter;
 }
 
+.nine-extra2 {
+  color: #ff69b4;
+  font-style: italic;
+}
+
 #replay {
   z-index: 3;
   cursor: pointer;
+  color: rgb(21, 161, 237);
+  text-decoration: underline;
 }
 
 /* Media Queries */
@@ -276,7 +374,17 @@ body {
   }
 
   .idea-6 span {
-    font-size: 10rem;
+    font-size: 3.5rem;
+  }
+
+  .photo-card {
+    width: 90px;
+    height: 110px;
+    padding: 5px 5px 18px 5px;
+  }
+
+  .photo-cards {
+    height: 180px;
   }
 
   .six .hat {
@@ -295,5 +403,17 @@ body {
   .nine p {
     font-size: 1.5rem;
     font-weight: lighter;
+  }
+}
+
+@media screen and (min-width: 501px) and (max-width: 768px) {
+  .photo-card {
+    width: 110px;
+    height: 130px;
+    padding: 6px 6px 20px 6px;
+  }
+
+  .photo-cards {
+    height: 220px;
   }
 }

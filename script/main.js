@@ -5,14 +5,8 @@ const fetchData = () => {
     .then(data => {
       dataArr = Object.keys(data);
       dataArr.map(customData => {
-        if (data[customData] !== "") {
-          if (customData === "imagePath") {
-            document
-              .querySelector(`[data-node-name*="${customData}"]`)
-              .setAttribute("src", data[customData]);
-          } else {
-            document.querySelector(`[data-node-name*="${customData}"]`).innerText = data[customData];
-          }
+        if (data[customData] !== "" && customData !== "imagePath") {
+          document.querySelector(`[data-node-name*="${customData}"]`).innerText = data[customData];
         }
 
         // Check if the iteration is over
@@ -208,16 +202,17 @@ const animationTimeline = () => {
       },
       0.2
     )
-    .from(
-      ".lydia-dp",
-      0.5,
+    .staggerFrom(
+      ".photo-card",
+      0.6,
       {
-        scale: 3.5,
+        scale: 0,
         opacity: 0,
-        x: 25,
-        y: -25,
-        rotationZ: -45
+        rotation: function(i) { return (i % 2 === 0 ? -1 : 1) * (Math.random() * 40 + 20); },
+        y: 200,
+        ease: Back.easeOut.config(1.2)
       },
+      0.25,
       "-=2"
     )
     .from(".hat", 0.5, {
@@ -265,6 +260,9 @@ const animationTimeline = () => {
       },
       "party"
     )
+    .add(function() {
+      launchConfetti();
+    })
     .staggerTo(
       ".eight svg",
       1.5,
@@ -281,7 +279,7 @@ const animationTimeline = () => {
       opacity: 0,
       y: 30,
       zIndex: "-1"
-    })
+    }, "+=4")
     .staggerFrom(".nine p", 1, ideaTextTrans, 1.2)
     .to(
       ".last-smile",
@@ -301,6 +299,89 @@ const animationTimeline = () => {
     tl.restart();
   });
 };
+
+// ===== CONFETTI =====
+function launchConfetti() {
+  const canvas = document.getElementById("confetti-canvas");
+  canvas.style.display = "block";
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const colors = [
+    "#ff69b4", "#ffd700", "#15a1ed", "#7dd175", "#bd6ecf",
+    "#ff6347", "#00cec9", "#e17055", "#fdcb6e", "#e84393",
+    "#6c5ce7", "#00b894", "#fab1a0", "#74b9ff", "#a29bfe"
+  ];
+
+  const confettiPieces = [];
+  const totalPieces = 250;
+
+  for (let i = 0; i < totalPieces; i++) {
+    confettiPieces.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height - canvas.height,
+      w: Math.random() * 20 + 12,
+      h: Math.random() * 12 + 6,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      speedY: Math.random() * 3 + 2,
+      speedX: Math.random() * 2 - 1,
+      rotation: Math.random() * 360,
+      rotationSpeed: Math.random() * 10 - 5,
+      opacity: 1,
+      shape: Math.random() > 0.5 ? "rect" : "circle"
+    });
+  }
+
+  let frameCount = 0;
+  const maxFrames = 300;
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    frameCount++;
+
+    confettiPieces.forEach(p => {
+      p.y += p.speedY;
+      p.x += p.speedX;
+      p.rotation += p.rotationSpeed;
+
+      if (frameCount > maxFrames - 60) {
+        p.opacity -= 0.016;
+        if (p.opacity < 0) p.opacity = 0;
+      }
+
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate((p.rotation * Math.PI) / 180);
+      ctx.globalAlpha = p.opacity;
+      ctx.fillStyle = p.color;
+
+      if (p.shape === "rect") {
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      } else {
+        ctx.beginPath();
+        ctx.arc(0, 0, p.w / 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.restore();
+
+      if (p.y > canvas.height) {
+        p.y = -10;
+        p.x = Math.random() * canvas.width;
+      }
+    });
+
+    if (frameCount < maxFrames) {
+      requestAnimationFrame(animate);
+    } else {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      canvas.style.display = "none";
+    }
+  }
+
+  animate();
+}
 
 // Run fetch and animation in sequence
 fetchData();
